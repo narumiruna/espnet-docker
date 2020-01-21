@@ -3,6 +3,7 @@ FROM pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 RUN apt-get update && apt-get install -y \
     cmake \
     libsndfile1-dev \
+    libhdf5-dev \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
@@ -16,6 +17,7 @@ RUN pip install -U pip \
     g2p_en \
     git+https://github.com/kamo-naoyuki/pytorch_complex \
     git+https://github.com/nttcslab-sp/dnn_wpe \
+    h5py==2.9.0 \
     inflect \
     jaconv \
     kaldiio \
@@ -32,7 +34,6 @@ RUN pip install -U pip \
     && rm -rf ~/.cache/pip
 
 RUN conda install -c conda-forge \
-    h5py=2.9.0 \
     kaldi \
     librosa \
     matplotlib \
