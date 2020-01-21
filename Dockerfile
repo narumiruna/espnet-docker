@@ -1,4 +1,4 @@
-FROM pytorch/pytorch:1.4-cuda10.1-cudnn7-devel
+FROM pytorch/pytorch:1.0.1-cuda10.0-cudnn7-devel
 
 RUN apt-get update && apt-get install -y \
     cmake \
@@ -7,11 +7,37 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install -U pip \
-    && pip install cupy==6.7.0 kaldiio \
+    && pip install \
+    configargparse \
+    cupy==6.0.0 \
+    editdistance==0.5.2 \
+    funcsigs \
+    g2p_en \
+    inflect \
+    jaconv \
+    kaldiio \
+    nara_wpe \
+    nltk \
+    nnmnkwii \
+    pillow-simd \
+    pysptk \
+    pyyaml \
+    sentencepiece \
+    soundfile \
+    tensorboardX \
+    unidecode \
+    git+https://github.com/kamo-naoyuki/pytorch_complex \
+    git+https://github.com/nttcslab-sp/dnn_wpe \
     && rm -rf ~/.cache/pip
 
-RUN conda install chainer matplotlib \
-    && conda install -c conda-forge kaldi \
+RUN conda install \
+    chainer=6.0.0 \
+    && conda install -c conda-forge \
+    h5py=2.9.0 \
+    kaldi \
+    librosa \
+    matplotlib \
+    scipy \
     && conda clean -ya
 
 # Install chainer_ctc
