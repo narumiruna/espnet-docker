@@ -8,11 +8,14 @@ RUN apt-get update && apt-get install -y \
 
 RUN pip install -U pip \
     && pip install \
+    chainer==6.0.0 \
     configargparse \
     cupy==6.0.0 \
     editdistance==0.5.2 \
     funcsigs \
     g2p_en \
+    git+https://github.com/kamo-naoyuki/pytorch_complex \
+    git+https://github.com/nttcslab-sp/dnn_wpe \
     inflect \
     jaconv \
     kaldiio \
@@ -26,12 +29,9 @@ RUN pip install -U pip \
     soundfile \
     tensorboardX \
     unidecode \
-    git+https://github.com/kamo-naoyuki/pytorch_complex \
-    git+https://github.com/nttcslab-sp/dnn_wpe \
     && rm -rf ~/.cache/pip
 
 RUN conda install \
-    chainer=6.0.0 \
     && conda install -c conda-forge \
     h5py=2.9.0 \
     kaldi \
