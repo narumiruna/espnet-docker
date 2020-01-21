@@ -13,21 +13,30 @@ RUN conda install chainer matplotlib \
     && conda install -c conda-forge kaldi \
     && conda clean -ya
 
-# install chainer_ctc
+# Install chainer_ctc
 WORKDIR /tmp
 RUN git clone https://github.com/jheymann85/chainer_ctc.git \
     && cd chainer_ctc \
-    && chmod +x install_warp-ctc.sh\
-    && ./install_warp-ctc.sh \
+    && bash install_warp-ctc.sh \
     && pip install . \
     && cd .. \
     && rm -rf chainer_ctc
 
+# Install warp-ctc
+RUN git clone https://github.com/espnet/warp-ctc \
+    && mkdir -p warp-ctc/build \
+    && cd warp-ctc/build \
+    && cmake .. \
+    && make -j$(nproc) \
+    && cd ../pytorch_binding \
+    && python setup.py install \
+    && cd ../../ \
+    && rm -rf warp-ctc
+
 WORKDIR /workspace
 RUN git clone https://github.com/espnet/espnet.git
 RUN cd espnet \
-    && git checkout v.0.6.1 \
+    && git checkout v.0.7.0 \
     && pip install .
-
 
 WORKDIR /workspace/espnet/tools
