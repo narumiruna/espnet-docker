@@ -34,6 +34,17 @@ RUN git clone https://github.com/espnet/warp-ctc \
     && cd ../../ \
     && rm -rf warp-ctc
 
+# Install warprnnt_pytorch
+RUN git clone https://github.com/HawkAaron/warp-transducer.git \
+    && mkdir -p warp-transducer/build \
+    && cd warp-transducer/build \
+    && cmake .. \
+    && make -j$(nproc) \
+    && cd ../pytorch_binding \
+    && python setup.py install \
+    && cd ../../ \
+    && rm -rf warp-transducer
+
 WORKDIR /workspace
 RUN git clone https://github.com/espnet/espnet.git
 RUN cd espnet \
