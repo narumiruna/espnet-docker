@@ -15,13 +15,11 @@ RUN conda install chainer matplotlib \
     && conda clean -ya
 
 # Install chainer_ctc
-WORKDIR /tmp
+WORKDIR /opt
 RUN git clone https://github.com/jheymann85/chainer_ctc.git \
     && cd chainer_ctc \
     && bash install_warp-ctc.sh \
-    && pip install . \
-    && cd .. \
-    && rm -rf chainer_ctc
+    && pip install .
 
 # Install warp-ctc
 RUN git clone https://github.com/espnet/warp-ctc \
@@ -30,9 +28,7 @@ RUN git clone https://github.com/espnet/warp-ctc \
     && cmake .. \
     && make -j$(nproc) \
     && cd ../pytorch_binding \
-    && python setup.py install \
-    && cd ../../ \
-    && rm -rf warp-ctc
+    && python setup.py install
 
 # Install warprnnt_pytorch
 RUN git clone https://github.com/HawkAaron/warp-transducer.git \
@@ -41,14 +37,13 @@ RUN git clone https://github.com/HawkAaron/warp-transducer.git \
     && cmake .. \
     && make -j$(nproc) \
     && cd ../pytorch_binding \
-    && python setup.py install \
-    && cd ../../ \
-    && rm -rf warp-transducer
+    && python setup.py install
 
+# Install ESPnet
 WORKDIR /workspace
-RUN git clone https://github.com/espnet/espnet.git
-RUN cd espnet \
-    && git checkout v.0.7.0 \
+RUN git clone https://github.com/espnet/espnet.git \
+    && cd espnet \
+    && git checkout v.0.6.1 \
     && pip install .
 
 WORKDIR /workspace/espnet/tools
