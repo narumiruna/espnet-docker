@@ -31,8 +31,7 @@ RUN pip install -U pip \
     unidecode \
     && rm -rf ~/.cache/pip
 
-RUN conda install \
-    && conda install -c conda-forge \
+RUN conda install -c conda-forge \
     h5py=2.9.0 \
     kaldi \
     librosa \
