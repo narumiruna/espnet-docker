@@ -7,11 +7,11 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install -U pip \
-    && pip install kaldiio \
+    && pip install cupy==6.7.0 kaldiio \
     && rm -rf ~/.cache/pip
 
 RUN conda install chainer matplotlib \
-    && conda install -c conda-forge cupy=6.7.0 kaldi \
+    && conda install -c conda-forge kaldi \
     && conda clean -ya
 
 # Install chainer_ctc
