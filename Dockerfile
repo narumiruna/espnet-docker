@@ -11,7 +11,7 @@ RUN pip install -U pip \
     && rm -rf ~/.cache/pip
 
 RUN conda install chainer matplotlib \
-    && conda install -c conda-forge kaldi \
+    && conda install -c conda-forge cupy kaldi \
     && conda clean -ya
 
 # Install chainer_ctc
